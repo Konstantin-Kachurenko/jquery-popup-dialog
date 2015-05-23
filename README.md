@@ -38,7 +38,7 @@ Internet Explorer 9+, Opera 11.6+, Opera Mobile 11.5+, Safari 5+, Chrome, Firefo
 	<style type="text/css">
 	.popup {
 	  background-color: rgb( 248, 248, 248 );
-          box-shadow: 0px 2px 2px 0px rgba( 0, 0, 0, .3 );
+	  box-shadow: 0px 2px 2px 0px rgba( 0, 0, 0, .3 );
 	}
 	.popup-content {
 	  padding: 20px 40px 30px 40px;
