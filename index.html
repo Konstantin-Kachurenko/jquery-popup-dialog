@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>$.dialog by Konstantin-Kachurenko</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">$.dialog</h1>
+      <h2 class="project-tagline">Плагин jQuery для реализации адаптивных всплывающих диалогов</h2>
+      <a href="https://github.com/Konstantin-Kachurenko/jquery-popup-dialog" class="btn">View on GitHub</a>
+      <a href="https://github.com/Konstantin-Kachurenko/jquery-popup-dialog/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Konstantin-Kachurenko/jquery-popup-dialog/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h2>
+<a id="Описание" class="anchor" href="#%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Описание</h2>
+
+<p>Адаптивный всплывающий диалог, расширяющий плагин <a href="https://github.com/Konstantin-Kachurenko/jquery-popup">$.popup</a>. Добавляет к существующему API методы управления содержимым блока с автодетектом обертки .popup-content и поддержку html-триггеров <code>data-dialog="selector"</code> у кликабельных элементов для автоматической инициализации и открытия диалогов.</p>
+
+<h3>
+<a id="Требования" class="anchor" href="#%D0%A2%D1%80%D0%B5%D0%B1%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F" aria-hidden="true"><span class="octicon octicon-link"></span></a>Требования:</h3>
+
+<p>jQuery 1.7+, плагин $.popup 1.x.x</p>
+
+<h3>
+<a id="Совместимость-с-браузерами" class="anchor" href="#%D0%A1%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C-%D1%81-%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%B0%D0%BC%D0%B8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Совместимость с браузерами:</h3>
+
+<p>Internet Explorer 9+, Opera 11.6+, Opera Mobile 11.5+, Safari 5+, Chrome, Firefox, IE Mobile</p>
+
+<h2>
+<a id="Подключение" class="anchor" href="#%D0%9F%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Подключение</h2>
+
+<p>Для использования плагина подключите скрипт в любом месте страницы, после подключения плагина $.popup.</p>
+
+<pre><code>&lt;link rel="stylesheet" href="path/to/script/jquery.popup.min.css" &gt;
+&lt;script src="path/to/script/jquery.popup.min.js"&gt;&lt;/script&gt;
+&lt;script src="path/to/script/jquery.popup.dialog.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h2>
+<a id="Примеры" class="anchor" href="#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B" aria-hidden="true"><span class="octicon octicon-link"></span></a>Примеры</h2>
+
+<h3>
+<a id="Базовый-пример" class="anchor" href="#%D0%91%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B9-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80" aria-hidden="true"><span class="octicon octicon-link"></span></a>Базовый пример</h3>
+
+<p>Блоки с классом <code>.popup</code> по умолчанию невидимы, так что они могут быть расположены в любом месте документа. Плагин сам позаботится об их переносе в конец <code>&lt;body&gt;</code>, чтобы избежать проблем со свойствами <code>z-index</code>.</p>
+
+<pre><code>&lt;!-- Базовые стили, обязательные для подключения --&gt;
+&lt;link rel="stylesheet" href="path/to/script/jquery.popup.min.css" &gt;
+
+&lt;!-- Скрипты плагина --&gt;
+&lt;script src="path/to/script/jquery.popup.min.js"&gt;&lt;/script&gt;
+&lt;script src="path/to/script/jquery.popup.dialog.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- 
+Темизация всплывающих окон осуществляется
+с помощью классов: .popup, .popup-content и .popup-overlay
+//--&gt;
+&lt;style type="text/css"&gt;
+.popup {
+  background-color: rgb( 248, 248, 248 );
+  -webkit-box-shadow: 0px 2px 2px 0px rgba( 0, 0, 0, .3 );
+     -moz-box-shadow: 0px 2px 2px 0px rgba( 0, 0, 0, .3 );
+      -ms-box-shadow: 0px 2px 2px 0px rgba( 0, 0, 0, .3 );
+          box-shadow: 0px 2px 2px 0px rgba( 0, 0, 0, .3 );
+}
+.popup-content {
+  padding: 20px 40px 30px 40px;
+}
+.popup-overlay {
+  background-color: rgba( 0, 0, 0, .3 );
+}
+&lt;/style&gt;
+
+&lt;!-- 
+Атрибут "data-dialog" содержит CSS-селектор для доступа к диалогу 
+--&gt;
+&lt;button data-dialog="#popup-dialog"&gt;
+  Открыть диалог
+&lt;/button&gt;
+
+&lt;!--
+Эффекты появления устанавливаются блоку .popup с помощью классов: 
+.effect-fade-scale, .effect-slide-right, .effect-slide-left, 
+.effect-slide-top, .effect-newspaper и .effect-sticky
+Если класс эффекта не задан, анимация будет сведена до 'fade in'.
+
+Любой элемент с классом .popup-close внутри диалога
+будет вызывать его закрытие по клику.
+
+.popup-overlay создается автоматически, если он не найден 
+сразу перед блоком .popup. 
+
+.popup-content является опциональным и не создается автоматически, 
+однако он описан в таблице стилей и его наличие учитывается в работе
+методов .empty() и .put() 
+
+Основное назначение этого блока - создавать прокручиваемую область 
+внутри диалога, если он не поместился на экране польностью.
+//--&gt;
+
+&lt;div class="popup effect-fade-scale" id="popup-dialog"&gt;
+  &lt;div class="popup-content"&gt;
+    &lt;h3&gt;Всплывающий диалог&lt;/h3&gt;
+    &lt;p&gt;
+    Привет, я - плагин для реализации всплывающих диалогов 
+    с красивыми анимациями появления на CSS3, и с минимальным
+    количеством javascript и css кода.
+    &lt;/p&gt;
+    &lt;button class="popup-close"&gt;закрыть&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h3>
+<a id="Использование-api" class="anchor" href="#%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Использование API</h3>
+
+<p>При инициализации плагина, объект <code>$.dialog</code> сохраняется в <code>.data('popup')</code> у каждого из блоков, попавшего в исходный набор. Этот объект предоставляет управление копией плагина:</p>
+
+<pre><code>&lt;!-- Форма оформления подписки на новости --&gt;
+&lt;form id="form-subscribe"&gt;
+  &lt;input type="email" name="subscribe" placeholder="Email" /&gt;
+  &lt;button type="submit"&gt;Подписаться на новости&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- 
+Диалог оповещения об отправке запроса. 
+--&gt;
+&lt;div class="popup effect-fade-scale" id="popup-dialog"&gt;
+  &lt;div class="popup-content"&gt;
+    &lt;h3&gt;Запрос принят&lt;/h3&gt;
+    &lt;p&gt;Спасибо за интерес, проявленный к нашей компании.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  $(document).ready(function(){
+
+    // Применяем плагин к блоку #popup-dialog
+    var $dialog = $('#popup-dialog').dialog();
+
+    // Включаем обработку отправки формы
+    $('#form-subscribe').submit(function(){
+
+      // Получаем доступ к плагину
+      var plugin = $dialog.data('popup');
+
+      // Отображаем диалог
+      plugin.open();
+
+      // Закрываем диалог автоматически через три секунды
+      plugin.close(3000);
+    });
+  });
+&lt;/script&gt;
+</code></pre>
+
+<h3>
+<a id="Декларативная-настройка-при-инициализации" class="anchor" href="#%D0%94%D0%B5%D0%BA%D0%BB%D0%B0%D1%80%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B0%D1%8F-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0-%D0%BF%D1%80%D0%B8-%D0%B8%D0%BD%D0%B8%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Декларативная настройка при инициализации</h3>
+
+<p>Все доступные опции инициализации плагина могут быть описаны с помощью data-атрибутов диалога <code>.popup</code>:</p>
+
+<pre><code>&lt;!-- Динамическая загрузка содержимого диалога при показе --&gt;
+
+&lt;style type="text/css"&gt;
+#ajax-dialog:empty {
+  background: url(preloader.gif) 50% 50% no-repeat;
+}
+&lt;/style&gt;
+
+&lt;div class="popup effect-fade-scale" id="ajax-dialog"
+  data-modal=""
+  data-open="$(this).data('popup').empty().load('ajax.php')"
+&gt;&lt;/div&gt;
+
+&lt;button data-dialog="#ajax-dialog"&gt;
+  Открыть диалог
+&lt;/button&gt;
+</code></pre>
+
+<h2>
+<a id="Параметры-инициализации" class="anchor" href="#%D0%9F%D0%B0%D1%80%D0%B0%D0%BC%D0%B5%D1%82%D1%80%D1%8B-%D0%B8%D0%BD%D0%B8%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8" aria-hidden="true"><span class="octicon octicon-link"></span></a>Параметры инициализации</h2>
+
+<p><code>Boolean modal = false</code></p>
+
+<p>Модальный режим, в котором клик по подложке блока не закрывает его.</p>
+
+<p><code>Boolean bubble = true</code></p>
+
+<p>"Всплывание" блока вверх по дереву документа. При инициализации с этим параметром, установленным в true, блок будет перемещен в конец &lt;body&gt;, не зависимо от того, где он был изначально.</p>
+
+<p><code>Function open = Null</code></p>
+
+<p>Функция, вызываемая перед отображением всплывающего блока.</p>
+
+<p><code>Function close = Null</code></p>
+
+<p>Функция, вызываемая перед скрытием всплывающего блока.</p>
+
+<p><code>Function realign = Null</code></p>
+
+<p>Функция, вызываемая перед установкой свойств <code>margin-left</code> и <code>margin-top</code> при позиционировании блока.</p>
+
+<h2>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span class="octicon octicon-link"></span></a>API</h2>
+
+<p>При инициализации плагина, объект $.dialog сохраняется в .data('popup') у каждого из блоков, попавшего в исходный набор. Этот объект предоставляет управление копией плагина и имеет следующий набор свойств методов:</p>
+
+<h3>
+<a id="Свойства" class="anchor" href="#%D0%A1%D0%B2%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>Свойства</h3>
+
+<p><code>jQuery $popup</code></p>
+
+<p>Всплывающий блок</p>
+
+<p><code>jQuery $overlay</code></p>
+
+<p>Подложка всплывающего блока</p>
+
+<h3>
+<a id="Методы" class="anchor" href="#%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%D1%8B" aria-hidden="true"><span class="octicon octicon-link"></span></a>Методы</h3>
+
+<p><code>$.popup config([Object params])</code></p>
+
+<p>Расширяет набор параметров инициализации, добавляя из объекта <code>Object params</code> новые параметры и перезаписывая уже существующие.</p>
+
+<p><code>$.popup open()</code></p>
+
+<p>Показывает всплывающий блок и его подложку.</p>
+
+<p><code>$.popup overlay()</code></p>
+
+<p>Показывает только подложку. После вызова этого метода, сам блок по прежнему может быть отображен с помощью метода <code>open()</code></p>
+
+<p><code>$.popup close([Number delay])</code></p>
+
+<p>Скрывает всплывающий блок. Если числовой параметр <code>delay</code> передан и больше 0, закрытие будет отсрочено на переданное количество микросекунд.</p>
+
+<p><code>$.popup realign()</code></p>
+
+<p>Позиционирует блок так же, как при показе или изменении размеров окна. Полезен при динамическом наполнении блока.</p>
+
+<p><code>jQuery empty()</code></p>
+
+<p>Удаляет содердимое диалога, возвращая блок <code>.popup-content</code>, либо сам диалог <code>.popup</code>, если <code>.popup-content</code> не найден.</p>
+
+<p><code>jQuery put(mixed content)</code></p>
+
+<p>Помещает содержимое в блок <code>.popup-content</code>, либо в сам диалог <code>.popup</code>, если <code>.popup-content</code> не найден. Параметр content может быть как строкой, так и DOM-элементом или объектом jQuery, представляющим элемент.</p>
+
+<p><code>jQuery destroy()</code></p>
+
+<p>Уничтожает копию плагина, возвращая исходный блок.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Konstantin-Kachurenko/jquery-popup-dialog">$.dialog</a> is maintained by <a href="https://github.com/Konstantin-Kachurenko">Konstantin-Kachurenko</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
