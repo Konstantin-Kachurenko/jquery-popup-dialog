@@ -28,7 +28,7 @@ a {
 .btn + .btn {
   margin-left: 1rem; 
 }
-.main-content .btn + .btn {
+.main-content .btn {
   margin-left: 0; 
   margin-right: 1rem; 
 }
