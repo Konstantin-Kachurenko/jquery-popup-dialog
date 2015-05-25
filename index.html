@@ -24,9 +24,11 @@
     </style>
     <script>
       (function($){
-        $('[data-dialog]').on('click', function(e){
-          var $this = $(e.target);
-          $($this.data('dialog')).attr('class', 'popup '+$this.data('effect'));
+        $(function(){
+          $('[data-dialog]').on('click', function(e){
+            var $this = $(e.target);
+            $($this.data('dialog')).attr('class', 'popup '+$this.data('effect'));
+          });
         });
       })(jQuery);
     </script>
