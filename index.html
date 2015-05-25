@@ -24,6 +24,14 @@
       background-color: rgba( 0, 0, 0, .3 );
     }
     </style>
+    <script>
+      (function($){
+        $('[data-dialog]').on('click', function(e){
+          var $this = $(e.target);
+          $($this.data('dialog')).attr('class', 'popup '+$this.data('effect'));
+        });
+      })(jQuery);
+    </script>
 </head>
   <body>
     <section class="page-header">
