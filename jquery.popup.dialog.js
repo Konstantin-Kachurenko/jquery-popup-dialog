@@ -30,8 +30,8 @@
     $.dialog.prototype.empty = function(){
         return (
             this.$popup.children('.popup-content').length 
-                ? this.$dialog.children('.popup-content:first-child')
-                : this.$dialog
+                ? this.$popup.children('.popup-content:first-child')
+                : this.$popup
         ).empty();
     };
 
